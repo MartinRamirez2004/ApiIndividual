@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import cohete from "../../assets/cohete.png";
 import "./Informativa.css";
 
 export default function Informativa() {
@@ -23,24 +24,46 @@ export default function Informativa() {
 
   return (
     <div className="infoapi-container">
-      <h1 className="infoapi-title">Información General</h1>
+      <h1 className="infoapi-title">SpaceX API Explorer</h1>
+      <p className="infoapi-author">Martin Ramirez</p>
+
+      <div className="infoapi-image">
+        <img src={cohete} alt="Cohetico" />
+      </div>
 
       {loading ? (
         <p>Cargando información...</p>
       ) : (
         info && (
           <div className="infoapi-card">
-            <h2>{info.name}</h2>
-            <p><strong>Fundador:</strong> {info.founder}</p>
-            <p><strong>Año de fundación:</strong> {info.founded}</p>
-            <p><strong>Empleados:</strong> {info.employees}</p>
-            <p><strong>Ubicación:</strong> {info.headquarters.city}, {info.headquarters.state}</p>
-            <p><strong>Resumen:</strong> {info.summary}</p>
+            <p>
+              <strong>Fundador:</strong> {info.founder}
+            </p>
+            <p>
+              <strong>Año de fundación:</strong> {info.founded}
+            </p>
+            <p>
+              <strong>Empleados:</strong> {info.employees}
+            </p>
+            <p>
+              <strong>Ubicación:</strong> {info.headquarters.city},{" "}
+              {info.headquarters.state}
+            </p>
+            <p>
+              <strong>Resumen:</strong> {info.summary}
+            </p>
           </div>
         )
       )}
-        <p>Creado por <strong>Martin Fernando Ramirez Ramirez</strong></p>
-        <p>2025</p>
+
+        <a
+          href="https://github.com/MartinRamirez2004"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          github.com/MartinRamirez2004
+        </a>
+        <p>Versión 1.0</p>
     </div>
   );
 }
