@@ -8,22 +8,35 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchRockets = async () => {
-      try {
-        const response = await fetch("https://api.spacexdata.com/v4/rockets");
-        const data = await response.json();
-        setRockets(data);
-        setFiltered(data);
-      } catch (error) {
-        console.error("Error al obtener cohetes:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchRockets = async () => {
+    try {
+      const response = await fetch("https://api.spacexdata.com/v4/rockets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        mode: "cors", // fuerza CORS explícito
+      });
 
-    fetchRockets();
-  }, []);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setRockets(data);
+      setFiltered(data);
+    } catch (error) {
+      console.error("Error al obtener cohetes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchRockets();
+}, []);
+
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
