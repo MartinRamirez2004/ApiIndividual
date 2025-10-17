@@ -100,7 +100,7 @@
   transform: scale(1.03);
 }
 
-/* 🌐 Responsividad */
+/* Responsividad */
 @media (max-width: 600px) {
   .home-title {
     font-size: 1.5rem;

@@ -1,7 +1,49 @@
-.informativa-container {
+.infoapi-container {
   background-color: #0d1117;
-  color: white;
+  color: #ffffff;
   min-height: 100vh;
   padding: 2rem 1rem 5rem;
   text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.infoapi-title {
+  color: #60a5fa;
+  margin-bottom: 1.5rem;
+}
+
+.infoapi-card {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.infoapi-card h2 {
+  color: #93c5fd;
+  text-align: center;
+}
+
+.infoapi-card p {
+  margin: 0.5rem 0;
+}
+
+.infoapi-footer {
+  margin-top: 2rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .infoapi-card {
+    padding: 1rem;
+  }
+
+  .infoapi-container {
+    padding-bottom: 6rem;
+  }
 }
