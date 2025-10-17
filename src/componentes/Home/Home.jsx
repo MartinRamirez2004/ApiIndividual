@@ -11,12 +11,25 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
   useEffect(() => {
     const fetchRockets = async () => {
       try {
-        const response = await fetch("https://api.spacexdata.com/v4/rockets");
+        const response = await fetch("https://api.spacexdata.com/v4/rockets", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          mode: "cors",
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("✅ Cohetes recibidos desde la API:", data); // 👈 agregado
         setRockets(data);
         setFiltered(data);
       } catch (error) {
-        console.error("Error al obtener cohetes:", error);
+        console.error("❌ Error al obtener cohetes:", error);
       } finally {
         setLoading(false);
       }
@@ -28,12 +41,16 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setQuery(value);
-    setFiltered(
-      rockets.filter((rocket) => rocket.name.toLowerCase().includes(value))
+    const filtrados = rockets.filter((rocket) =>
+      rocket.name.toLowerCase().includes(value)
     );
+    console.log("🔎 Resultado de búsqueda:", filtrados); // 👈 agregado
+    setFiltered(filtrados);
   };
 
   const isFavorite = (id) => favorites.some((f) => f.id === id);
+
+  console.log("🚀 Cohetes filtrados para renderizar:", filtered); // 👈 agregado
 
   return (
     <div className="home-container">
@@ -70,7 +87,7 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
               <button
                 className="fav-btn"
                 onClick={(e) => {
-                  e.stopPropagation(); // evita abrir detalles
+                  e.stopPropagation();
                   toggleFavorite(rocket);
                 }}
               >

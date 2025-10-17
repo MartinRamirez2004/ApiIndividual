@@ -176,3 +176,19 @@
     padding: 12px;
   }
 }
+
+/* 🛠 Forzar colores correctos en WebView Android */
+html, body, .home-container {
+  background-color: #0d1117 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important; /* evita que el texto se vuelva transparente */
+}
+
+.home-item span {
+  color: #ffffff !important;
+}
+
+* {
+  color-scheme: light dark;
+  forced-color-adjust: none; /* evita inversión de color en Android WebView */
+}
