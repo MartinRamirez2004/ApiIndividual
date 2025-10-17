@@ -192,3 +192,27 @@ html, body, .home-container {
   color-scheme: light dark;
   forced-color-adjust: none; /* evita inversión de color en Android WebView */
 }
+
+.home-container {
+  color: white;
+  text-align: center;
+}
+
+.home-list li {
+  display: flex !important;
+  justify-content: space-between;
+  padding: 10px;
+  color: white !important;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.debug-section {
+  font-size: 0.9em;
+  color: #00ffaa;
+  margin: 10px;
+  background: rgba(0, 255, 170, 0.05);
+  border-radius: 8px;
+  padding: 5px;
+}

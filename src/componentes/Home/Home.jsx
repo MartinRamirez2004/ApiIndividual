@@ -8,6 +8,9 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // 🔍 Verificación de props recibidas desde App.jsx
+  console.log("🧩 Props recibidas:", { onSelectRocket, favorites, toggleFavorite });
+
   useEffect(() => {
     const fetchRockets = async () => {
       try {
@@ -25,7 +28,7 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
         }
 
         const data = await response.json();
-        console.log("✅ Cohetes recibidos desde la API:", data); // 👈 agregado
+        console.log("✅ Cohetes recibidos desde la API:", data);
         setRockets(data);
         setFiltered(data);
       } catch (error) {
@@ -44,13 +47,13 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
     const filtrados = rockets.filter((rocket) =>
       rocket.name.toLowerCase().includes(value)
     );
-    console.log("🔎 Resultado de búsqueda:", filtrados); // 👈 agregado
+    console.log("🔎 Resultado de búsqueda:", filtrados);
     setFiltered(filtrados);
   };
 
-  const isFavorite = (id) => favorites.some((f) => f.id === id);
+  const isFavorite = (id) => favorites?.some((f) => f.id === id);
 
-  console.log("🚀 Cohetes filtrados para renderizar:", filtered); // 👈 agregado
+  console.log("🚀 Cohetes filtrados para renderizar:", filtered);
 
   return (
     <div className="home-container">
@@ -73,33 +76,43 @@ export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
         />
       </div>
 
-      {loading ? (
-        <p className="home-loading">Cargando...</p>
-      ) : (
-        <ul className="home-list">
-          {filtered.map((rocket) => (
-            <li
-              key={rocket.id}
-              className="home-item"
-              onClick={() => onSelectRocket(rocket)}
-            >
-              <span>{rocket.name}</span>
-              <button
-                className="fav-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFavorite(rocket);
-                }}
-              >
-                <Star
-                  color={isFavorite(rocket.id) ? "gold" : "gray"}
-                  fill={isFavorite(rocket.id) ? "gold" : "none"}
-                />
-              </button>
-            </li>
-          ))}
-        </ul>
+      {/* 🧠 Estado de depuración visual */}
+      {loading && <p className="home-loading">Cargando...</p>}
+      {!loading && filtered.length === 0 && (
+        <p className="home-empty">No se encontraron cohetes.</p>
       )}
+
+      {/* 🧾 Render forzado de prueba */}
+      {!loading && (
+        <div className="debug-section">
+          <p>🧪 Total cohetes en API: {rockets.length}</p>
+          <p>🧪 Total filtrados: {filtered.length}</p>
+        </div>
+      )}
+
+      <ul className="home-list">
+        {filtered.map((rocket) => (
+          <li
+            key={rocket.id}
+            className="home-item"
+            onClick={() => onSelectRocket && onSelectRocket(rocket)}
+          >
+            <span className="rocket-name">{rocket.name}</span>
+            <button
+              className="fav-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite && toggleFavorite(rocket);
+              }}
+            >
+              <Star
+                color={isFavorite(rocket.id) ? "gold" : "gray"}
+                fill={isFavorite(rocket.id) ? "gold" : "none"}
+              />
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
