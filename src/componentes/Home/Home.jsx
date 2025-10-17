@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Search, Rocket } from "lucide-react";
+import { Search, Rocket, Star } from "lucide-react";
 import "./Home.css";
 
-export default function Home() {
+export default function Home({ onSelectRocket, favorites, toggleFavorite }) {
   const [rockets, setRockets] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [query, setQuery] = useState("");
@@ -33,6 +33,8 @@ export default function Home() {
     );
   };
 
+  const isFavorite = (id) => favorites.some((f) => f.id === id);
+
   return (
     <div className="home-container">
       <div className="home-header">
@@ -59,8 +61,24 @@ export default function Home() {
       ) : (
         <ul className="home-list">
           {filtered.map((rocket) => (
-            <li key={rocket.id} className="home-item">
-              {rocket.name}
+            <li
+              key={rocket.id}
+              className="home-item"
+              onClick={() => onSelectRocket(rocket)}
+            >
+              <span>{rocket.name}</span>
+              <button
+                className="fav-btn"
+                onClick={(e) => {
+                  e.stopPropagation(); // evita abrir detalles
+                  toggleFavorite(rocket);
+                }}
+              >
+                <Star
+                  color={isFavorite(rocket.id) ? "gold" : "gray"}
+                  fill={isFavorite(rocket.id) ? "gold" : "none"}
+                />
+              </button>
             </li>
           ))}
         </ul>

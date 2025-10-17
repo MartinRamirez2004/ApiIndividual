@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Favoritos.css";
 
-export default function Favoritos() {
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    const favs = JSON.parse(localStorage.getItem("favoritos")) || [];
-    setFavorites(favs);
-  }, []);
-
+export default function Favoritos({ favorites, toggleFavorite, onSelectRocket }) {
   if (favorites.length === 0) {
     return (
       <div className="favoritos-container">
@@ -26,9 +19,22 @@ export default function Favoritos() {
       <h1 className="favoritos-title">Tus Cohetes Favoritos</h1>
       <div className="favoritos-grid">
         {favorites.map((rocket) => (
-          <div key={rocket.id} className="favoritos-card">
+          <div
+            key={rocket.id}
+            className="favoritos-card"
+            onClick={() => onSelectRocket(rocket)}
+          >
             <img src={rocket.flickr_images[0]} alt={rocket.name} />
             <h2>{rocket.name}</h2>
+            <button
+              className="remove-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(rocket);
+              }}
+            >
+              Quitar
+            </button>
           </div>
         ))}
       </div>
