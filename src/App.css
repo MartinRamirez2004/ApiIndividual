@@ -1,0 +1,68 @@
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100dvh; /* ✅ mejor que 100vh en móviles modernos */
+  background-color: #0d1117; /* mismo color base del Home */
+  color: white;
+  overflow-x: hidden; /* evita desplazamiento horizontal */
+  box-sizing: border-box;
+}
+
+/* Asegura que todo el contenido se mantenga visible y centrado */
+header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* El área principal se ajusta al espacio restante */
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* Footer (barra inferior fija o espacio para ella) */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  /* no uses height aquí si ya tienes la barra BottomBar */
+}
+
+/* ⚡ Ajustes específicos para móviles */
+@media (max-width: 768px) {
+  .app-container {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); /* deja espacio para la BottomBar */
+    min-height: 100dvh;
+  }
+
+  main {
+    padding: 0.5rem;
+    align-items: center;
+  }
+}
+
+/* ⚙️ Para prevenir saltos o espacios en navegadores antiguos */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+  background-color: #0d1117;
+  color: white;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
