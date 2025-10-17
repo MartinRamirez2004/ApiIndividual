@@ -1,4 +1,7 @@
 /* App.css */
+* {
+  forced-color-adjust: none;
+}
 .app-container {
   display: flex;
   flex-direction: column;
